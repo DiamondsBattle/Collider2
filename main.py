@@ -1,6 +1,7 @@
 from ursina import *
 from assets.prefabs.controller import FirstPersonController
 from assets.prefabs.weapon import Weapon
+from assets.prefabs.health_bar import HealthBar
 
 
 def update():
@@ -25,11 +26,22 @@ if __name__ == '__main__':
     controller = FirstPersonController()
     ground = Entity(model='plane',
                     scale=32,
-                    texture='grass',
+                    texture='brick',
                     texture_scale=(32, 32),
                     collider='box',
                     filtering=None)
-    g18c = Weapon(capacity=10, name='test', model='cube', color=color.black, scale_z=.5, parent=controller, delay=.2)
-    g18c.position += Vec3(.2, 0, .2)
+    g18c = Weapon(ammo=0,
+                  mag_size=200,
+                  magazine=200,
+                  reload_delay=2,
+                  name='test',
+                  model='gun_pistol',
+                  parent=controller,
+                  texture='grass',
+                  collider='cube',
+                  shoot_delay=.001,
+                  mode='auto',
+                  position=Vec3(0, 0, 0))
+    health_bar = HealthBar()
 
     app.run()

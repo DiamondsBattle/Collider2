@@ -1,5 +1,6 @@
 from ursina import *
 from assets.prefabs.controller import FirstPersonController
+from assets.prefabs.weapon import Weapon
 
 
 def update():
@@ -28,5 +29,7 @@ if __name__ == '__main__':
                     texture_scale=(32, 32),
                     collider='box',
                     filtering=None)
+    g18c = Weapon(capacity=10, name='test', model='cube', color=color.black, scale_z=.5, parent=controller, delay=.2)
+    g18c.position += Vec3(.2, 0, .2)
 
     app.run()

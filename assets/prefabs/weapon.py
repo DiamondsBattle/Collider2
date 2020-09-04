@@ -32,6 +32,10 @@ class Weapon(Entity):
             self.can_shoot = False
             if not self.reloading:
                 invoke(setattr, self, 'can_shoot', True, delay=self.shoot_delay)
+        if key == keybind['reload']:
+            self.can_shoot = False
+            self.reloading = True
+            invoke(function=self.reload, delay=self.reload_delay)
 
     def magazineIsEmpty(self):
         if self.magazine <= 0:
@@ -54,9 +58,8 @@ class Weapon(Entity):
 
     def reload(self):
         self.can_shoot = False
-        if self.ammo == 0 and self.magazineIsEmpty():
-            self.ammo_text.color = color.red
-        self.magazine = self.mag_size if self.ammo >= self.mag_size else self.ammo
+        self.reloading = True
+        if self.ammo != 0 and self.mag_size
         self.ammo -= self.magazine
         self.can_shoot = True
         self.reloading = False

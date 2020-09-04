@@ -4,4 +4,5 @@ keybind = {'forward': 'z',
            'left': 'd',
            'jump': 'space',
            'sneak': 'shift-l',
-           'shoot': 'left mouse'}
+           'shoot': 'left mouse',
+           'reload': 'r'}

@@ -13,12 +13,9 @@ class Weapon(Entity):
         self.reload_delay = reload_delay
         self.reloading = False
         self.can_shoot = True
-        self.ammo_text = Text(text=f'{self.magazine}/{self.ammo}')
         self.bullets = []
 
     def update(self):
-        self.ammo_text.text = 'Out of ammo !' if self.ammo == 0 and self.magazineIsEmpty() else f'{self.magazine}/{self.ammo}'
-        self.ammo_text.color = color.red if self.ammo == 0 and self.magazineIsEmpty() else self.ammo_text.color
         if held_keys['left mouse'] and self.mode == 'auto' and self.can_shoot:
             self.shoot()
             self.can_shoot = False
@@ -27,7 +24,6 @@ class Weapon(Entity):
 
     def input(self, key):
         if key == 'left mouse down' and self.mode == 'semi' and self.can_shoot:
-            print(self.can_shoot)
             self.shoot()
             self.can_shoot = False
             if not self.reloading:
@@ -70,6 +66,5 @@ class Weapon(Entity):
             old_ammo = self.ammo
             self.magazine += self.ammo
             self.ammo -= old_ammo
-        print(self.magazine)
         self.can_shoot = True
         self.reloading = False

@@ -59,7 +59,17 @@ class Weapon(Entity):
     def reload(self):
         self.can_shoot = False
         self.reloading = True
-        if self.ammo != 0 and self.mag_size
-        self.ammo -= self.magazine
+        if self.mag_size <= self.ammo:
+            self.magazine += self.mag_size
+            if self.magazine > self.mag_size:
+                old_mag = self.magazine
+                self.magazine = self.mag_size
+                self.ammo += old_mag - self.magazine
+            self.ammo -= self.mag_size
+        elif self.mag_size > self.ammo:
+            old_ammo = self.ammo
+            self.magazine += self.ammo
+            self.ammo -= old_ammo
+        print(self.magazine)
         self.can_shoot = True
         self.reloading = False

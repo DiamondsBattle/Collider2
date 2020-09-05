@@ -5,13 +5,14 @@ from keybinds import keybind
 
 
 def update():
-    global current_weapon, ammo_text, current_weapon_text
-
-    if held_keys[keybind['gun_change_mode']]:
-        current_weapon.mode = 'semi' if current_weapon.mode == 'auto' else 'auto'
+    global ammo_text, current_weapon_text
 
     ammo_text.text = f'{current_weapon.magazine}/{current_weapon.ammo}'
     current_weapon_text.text = f'{current_weapon.name} ({current_weapon.mode})'
+
+def input(key):
+    if key == keybind['gun_change_mode']:
+        current_weapon.mode = 'semi' if current_weapon.mode == 'auto' else 'auto'
 
 
 if __name__ == '__main__':

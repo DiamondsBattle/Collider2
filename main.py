@@ -1,19 +1,17 @@
 from ursina import *
 from assets.prefabs.controller import FirstPersonController
 from assets.prefabs.weapon import Weapon
+from keybinds import keybind
 
 
 def update():
-    global hovered, position, ammo_text
-    if held_keys['a']:
-        hovered.text = f'Hovered Entity : {mouse.hovered_entity}'
-    else:
-        hovered.text = ''
-    if held_keys['e']:
-        position.text = f'X : {controller.position[0]} Y : {controller.position[1]} Z : {controller.position[2]}'
-    else:
-        position.text = ''
+    global current_weapon, ammo_text, current_weapon_text
+
+    if held_keys[keybind['gun_change_mode']]:
+        current_weapon.mode = 'semi' if current_weapon.mode == 'auto' else 'auto'
+
     ammo_text.text = f'{current_weapon.magazine}/{current_weapon.ammo}'
+    current_weapon_text.text = f'{current_weapon.name} ({current_weapon.mode})'
 
 
 if __name__ == '__main__':
@@ -34,7 +32,7 @@ if __name__ == '__main__':
                   mag_size=10,
                   magazine=10,
                   reload_delay=1,
-                  name='test',
+                  name='M9',
                   model='gun_pistol',
                   parent=controller,
                   texture='grass',
@@ -48,5 +46,7 @@ if __name__ == '__main__':
     ammo_text = Text(text=f'{current_weapon.magazine}/{current_weapon.ammo}',
                      scale=3,
                      position=Vec3(.52, -.4, 0))
+    current_weapon_text = Text(text=f'{current_weapon.name} ({current_weapon.mode})',
+                               position=Vec3(.53, -.3, 0))
 
     app.run()

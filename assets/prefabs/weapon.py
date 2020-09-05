@@ -28,7 +28,7 @@ class Weapon(Entity):
             self.can_shoot = False
             if not self.reloading:
                 invoke(setattr, self, 'can_shoot', True, delay=self.shoot_delay)
-        if key == keybind['reload']:
+        if key == keybind['gun_reload']:
             self.can_shoot = False
             self.reloading = True
             invoke(function=self.reload, delay=self.reload_delay)

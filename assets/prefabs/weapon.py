@@ -1,8 +1,40 @@
+"""
+Uzi :
+name='Uzi'
+mag_size=
+shoot_delay=.01
+reload_delay=
+mode='auto'
+
+Uzi Mini  :
+name='Uzi Mini'
+mag_size=
+shoot_delay=0.06
+reload_delay=
+mode='auto'
+
+Uzi Micro :
+name='Uzi Micro'
+mag_size=
+shoot_delay=0.05
+reload_delay=
+mode='auto'
+
+M60 :
+name='M60'
+
+M14 :
+name='M14'
+
+M9 :
+name='M9'
+"""
+
 from ursina import *
 from keybinds import keybind
 
 class Weapon(Entity):
-    def __init__(self, name, ammo, shoot_delay, mode, magazine, reload_delay, mag_size, **kwargs):
+    def __init__(self, name, ammo, shoot_delay, mode, magazine, reload_delay, mag_size, damage, **kwargs):
         super().__init__(**kwargs)
         self.name = name
         self.ammo = ammo
@@ -11,6 +43,7 @@ class Weapon(Entity):
         self.shoot_delay = shoot_delay
         self.mode = mode
         self.reload_delay = reload_delay
+        self.damage = damage
         self.reloading = False
         self.can_shoot = True
         self.bullets = []
@@ -68,3 +101,10 @@ class Weapon(Entity):
             self.ammo -= old_ammo
         self.can_shoot = True
         self.reloading = False
+
+    @staticmethod
+    def isWeapon(obj):
+        if isinstance(obj, Weapon):
+            return True
+        else:
+            return False

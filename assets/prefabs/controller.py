@@ -45,7 +45,7 @@ class FirstPersonController(Entity):
         camera.rotation_y = self.rotation_y
 
         origin = self.world_position + (self.up*.5) + (self.direction/2)
-        middle_ray = raycast(origin , self.direction, ignore=[self,], distance=.25, debug=False)
+        middle_ray = raycast(origin, self.direction, ignore=[self,], distance=.25, debug=False)
         left_ray = raycast(origin, lerp(self.left, self.forward, .125), ignore=[self,], distance=1.4, debug=False)
         right_ray = raycast(origin, lerp(self.right, self.forward, .125), ignore=[self,], distance=1.4, debug=False)
 
@@ -88,6 +88,8 @@ class FirstPersonController(Entity):
 
         self.grounded = False
         self.animate_y(self.y + self.jump_height, self.jump_duration, resolution=120, curve=curve.out_expo)
+        for i in self.children:
+            i.animate_y(i.y + self.jump_height, self.jump_duration, resolution=120, curve=curve.out_expo)
         invoke(self.start_fall, delay=self.jump_duration)
 
     def start_fall(self):
